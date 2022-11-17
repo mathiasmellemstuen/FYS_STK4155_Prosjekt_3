@@ -1,0 +1,2 @@
+Found covid data on: 
+https://www.kaggle.com/datasets/meirnizri/covid19-dataset
