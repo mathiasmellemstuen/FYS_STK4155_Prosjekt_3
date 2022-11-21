@@ -16,3 +16,6 @@ Del 2:
 1. Regression med Franke/havbunns data. 
 2. Bruke Neural Network, SVM, linear regression. 
 3. Analysere bias-variance tradeoff.
+
+Notater: 
+https://towardsdatascience.com/feature-importance-with-neural-network-346eb6205743
