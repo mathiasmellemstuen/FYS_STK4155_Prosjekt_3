@@ -1,6 +1,9 @@
 Del 1:
 1. Bruke Neural Network og SVM for klassifisering av covid data.
-Her vil vi se på sannsynligheten for å dø/ikke dø. 
+Her vil vi se på sannsynligheten for å dø/ikke dø.
+
+https://scikit-learn.org/stable/modules/svm.html
+
 
 2. Finne ut hvilke features som vektes høyest av metodene våre. 
 -Muligens prøve å fjerne features? Kanskje se hva som skjer om vi fjerner viktigste featuresene.  
