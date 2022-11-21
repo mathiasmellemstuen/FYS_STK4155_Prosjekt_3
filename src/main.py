@@ -5,4 +5,7 @@ if __name__ == "__main__":
 
     # Loading covid dataset
     headers, data = load_covid_data()
+
     Y = data[:,4]
+    X = np.delete(data, 4, 1)
+    

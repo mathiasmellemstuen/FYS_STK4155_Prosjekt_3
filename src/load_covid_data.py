@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 def load_covid_data():
     """
@@ -16,7 +17,12 @@ def load_covid_data():
 
     headers = data.columns.tolist()
 
+    headers = list(map(lambda x: x.replace("DATE_DIED", "DIED"), headers))
+
     data["DATE_DIED"] = pd.to_datetime(data["DATE_DIED"], dayfirst=True)
     data["DATE_DIED"] = pd.to_numeric(data["DATE_DIED"])
 
-    return headers, data.to_numpy()
+    data = data.to_numpy()
+    data[:,4] = np.where(data[:, 4] == -2208988800000000000, 0, 1)
+
+    return headers, data
