@@ -25,4 +25,7 @@ def load_covid_data():
     data = data.to_numpy()
     data[:,4] = np.where(data[:, 4] == -2208988800000000000, 0, 1)
 
-    return headers, data
+    Y = data[:,4]
+    X = np.delete(data, 4, 1)
+
+    return headers, data, X, Y
