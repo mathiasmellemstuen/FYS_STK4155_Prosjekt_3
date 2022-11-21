@@ -40,4 +40,4 @@ def grid_search_hyperparameters_MLP(X_train, X_test, Y_train, Y_test, plot_title
             if verbose:
                 print(f"alpha:{alpha}, momentum :{mom} gives accuracy {acc}")
     
-    create_logarithmic_heatmap_plot(plot_title, "$\alpha$", "$Momentum$", acc_values, alphas, momentums, True)
+    create_logarithmic_heatmap_plot(plot_title, "Alpha", "Momentum", acc_values, alphas, momentums, True)
