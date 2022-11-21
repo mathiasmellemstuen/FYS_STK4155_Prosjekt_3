@@ -27,5 +27,4 @@ def load_covid_data():
 
     Y = data[:,4]
     X = np.delete(data, 4, 1)
-
-    return headers, data, X, Y
+    return headers, X, Y

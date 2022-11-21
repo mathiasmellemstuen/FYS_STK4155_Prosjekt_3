@@ -30,6 +30,6 @@ def PredictionNN(X,Y):
 if __name__ == "__main__":
 
     # Loading covid dataset
-    headers, data, X, Y = load_covid_data()
+    headers, X, Y = load_covid_data()
     PredictionNN(X,Y)
     
