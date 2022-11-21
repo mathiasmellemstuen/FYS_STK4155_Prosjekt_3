@@ -1,0 +1,18 @@
+Del 1:
+1. Bruke Neural Network og SVM for klassifisering av covid data.
+Her vil vi se på sannsynligheten for å dø/ikke dø. 
+
+2. Finne ut hvilke features som vektes høyest av metodene våre. 
+-Muligens prøve å fjerne features? Kanskje se hva som skjer om vi fjerner viktigste featuresene.  
+
+3. Analysere sannsynligheten for å dø som mann mot kvinne, diabetes/asthma eller ikke, alder, etc...
+-Hva våre modeller predikerer mot hva som egentlig er sant. 
+
+4. Accuracy score, grid search, confusion matrix.
+
+5. Sammenligne med andre sine artikler/forskning!
+
+Del 2:
+1. Regression med Franke/havbunns data. 
+2. Bruke Neural Network, SVM, linear regression. 
+3. Analysere bias-variance tradeoff.
