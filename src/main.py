@@ -13,8 +13,8 @@ def PredictionNN(X,Y):
     new_X = X[random_index:random_index+M]
     new_Y = Y[random_index:random_index+M]
     
-    new_X = X[0:M]
-    new_Y = Y[0:M]
+    #new_X = X[0:M]
+    #new_Y = Y[0:M]
 
     train_size = 0.5
     test_size = 1 - train_size

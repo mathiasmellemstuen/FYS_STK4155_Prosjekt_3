@@ -13,7 +13,7 @@ def load_covid_data():
         np.ndarray
             Two dimensional numpy array with all parsed data
     """
-    data = pd.read_csv("covid_data.csv", index_col=False, low_memory = False)
+    data = pd.read_csv("../data/covid_data.csv", index_col=False, low_memory = False)
 
     headers = data.columns.tolist()
 
