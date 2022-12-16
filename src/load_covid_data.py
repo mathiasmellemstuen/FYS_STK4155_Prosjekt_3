@@ -16,6 +16,7 @@ def load_covid_data():
     data = pd.read_csv("../data/covid_data.csv", index_col=False, low_memory = False)
 
     headers = data.columns.tolist()
+
     headers = list(map(lambda x: x.replace("DATE_DIED", "DIED"), headers))
 
     data["DATE_DIED"] = pd.to_datetime(data["DATE_DIED"], dayfirst=True)
@@ -26,5 +27,7 @@ def load_covid_data():
 
     Y = data[:,4]
     X = np.delete(data, 4, 1)
-    headers = np.delete(headers, 4)
+
+    headers = np.delete(headers, 4) #delete died from headers
+
     return headers, X, Y

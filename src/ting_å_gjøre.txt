@@ -1,5 +1,0 @@
-Legge til scaling av X, se: https://scikit-learn.org/stable/modules/neural_networks_supervised.html
-korrelasjons matrise
-
-Ideer:
-grid search på slutten ved å fjerne visse parametere (grid search av parameter/feature fjerning)

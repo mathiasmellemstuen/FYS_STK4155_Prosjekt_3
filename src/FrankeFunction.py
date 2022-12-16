@@ -4,14 +4,12 @@ from random import random
 def FrankeFunction(x,y):
     """
     Calculates the franke function
-
     Parameters
     ----------
     x: np.array
         A meshgrid array with x sample points
     y: np.array
         A meshgrid array with y sample points
-
     Returns
     -------
     np.array
@@ -28,7 +26,6 @@ def FrankeFunction(x,y):
 def FrankeFunctionNoised(x, y, max_noise): 
     """
     Calculates the franke function with an added noise
-
     Parameters
     ----------
     x: np.array
@@ -38,7 +35,6 @@ def FrankeFunctionNoised(x, y, max_noise):
     max_noise: float
         Maximum amount of noise added to the values from the franke function.
         Noise is normal distributed N~[0, max_noise]
-
     Returns
     -------
     np.array
