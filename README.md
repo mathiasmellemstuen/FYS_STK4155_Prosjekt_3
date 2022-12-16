@@ -2,7 +2,7 @@
 
 Third and final project in FYS-STK4155 with deadline 18.12.2022.
 
-The project report can be found [here](https://github.com/erlend1202/FYS_STK4155_Prosjekt_3/blob/main/report/report.pdf)
+The project report can be found [here](https://github.com/mathiasmellemstuen/FYS_STK4155_Prosjekt_3/blob/main/report/report.pdf)
 ## Prerequisites for running
 
 Python 3 and Jupyter is used and needed for running the code. Numpy, Matplotlib and Sklearn is needed. These can be installed with this command: `pip3 install numpy matplotlib sklearn`.
