@@ -84,7 +84,7 @@
 % ===========================================
                        % self-explanatory
 \begin{document}
-\title{Analyzing Covid data to discover factors associated with death and hospitalization}  % self-explanatory
+\title{Analyzing Covid data to discover factors associated with death}  % self-explanatory
 \author{Erlend Kristensen, Mathias Mellemstuen, Magnus Selmer-Anderssen Kråkenes} % self-explanatory
 \date{\today}      
 
@@ -103,13 +103,13 @@
 \section{Introduction}
 \label{sec:INTRODUCTION}
 % Motivate the reader, the first part of the introduction always gives motivation and tries to give the overarching ideas
-The Covid-19 pandemic has caused the death of at least 6.6 million people [World Health Organization (WHO) (\ref{ref: numberOfDeaths}), 2022]. Lockdowns were introduced to reduce the disease's spread, and while effective, the lockdowns have negatively impacted both the physical and mental health of the people, while also seriously hampering the economy of the world. Experts fear we now face a new wave of the disease [Folkehelseinstituttet (FHI) (\ref{ref: ukerapport_corona}), 2022], and many believe that we will never truly rid ourselves of it and that it is something we will have to learn to live with (kilde). 
-To prepare for this eventuality, we want to create a tool to evaluate the major contributing factors to hospitalization and death due to the disease. By settling which groups are more at risk, we hope to provide improved health recommendations to the public. 
+The Covid-19 pandemic has caused the death of at least 6.6 million people [World Health Organization (WHO) (\ref{ref: numberOfDeaths}), 2022]. Lockdowns were introduced to reduce the disease's spread, and while effective, the lockdowns have negatively impacted both the physical and mental health of the people, while also seriously hampering the economy of the world. Experts fear we now face a new wave of the disease [Folkehelseinstituttet (FHI) (\ref{ref: ukerapport_corona}), 2022], and there is a possibility that we will never truly rid ourselves of it and that it is something we will have to learn to live with. 
+To prepare for such an eventuality, we want to create a tool to evaluate the major contributing factors to death due to the disease. By settling which groups are more at risk, we hope to provide improved health recommendations to the public. 
 % Huskeliste: Få inn litt om status til problemet.
 
 % What we have done 
 \\
- We will utilize two different machine learning algorithms: The \textit{Multilayer Perceptron} (MLP) and \textit{Random Forest}. The two algorithms are trained with a huge covid dataset to classify the likelihood of death based on a large number of features. Once the algorithms are trained, we will analyze the models to extract the relative importance of each feature. We will then use simple regression methods to further investigate the most important contributing features. The results will then be compared to the results of previous studies (FØR INN KILDE HER). 
+ We will utilize two different machine learning algorithms: The \textit{Multilayer Perceptron} (MLP) and \textit{Random Forest}. The two algorithms are trained with a huge covid dataset to classify the likelihood of death based on a large number of features. Once the algorithms are trained, we will analyze the models to extract the relative importance of each feature. We will then use simple regression methods to further investigate the most important contributing features. %The results will then be compared to the results of previous studies (FØR INN KILDE HER). 
  
 % At the end of the introduction you should give a brief summary of the structure of the report
 \\
@@ -125,9 +125,10 @@ We will introduce the necessary background and theory in section \ref{sec: METHO
 % Where is the data from, what does it contain, and how have we treated it?
 We will use a publicly available data set (\ref{sec: Dataset}) in our investigation. The data is provided by the Mexican government, and it contains approximately one million samples, with up to 21 features. The majority of the features are categorical, most of which are in a yes/no fashion. In these cases, the positive case 'yes' is represented by the number 1, while the negative case 'no' is represented by the number 2. Only one feature, 'age', is numerical. 
 % Hva gjør vi med dataen før vi bruker den?
-However, many samples are lacking information on one or several features. In these cases, the lacking data is represented by a number between 97 and 99. This missing data needs to be taken into consideration, as feeding the algorithms disproportionate feature data can cause them to attribute false feature importances.
+However, many samples are lacking information on one or several features. In these cases, the lacking data is represented by a number between 97 and 99. %This missing data needs to be taken into consideration, as feeding the algorithms disproportionate feature data can cause them to attribute false feature importances.
 % Classification problem
-To discover which features are important in causing death, we will use the Random Forest classifier, which has a built-in method for this.
+
+To discover which features are important in causing death, we will use the Random Forest classifier, which has a built-in method for this. A comparison of different machine learning algorithms also found that the Random Forest algorithm performed particularly well when predicting covid-19 mortality [Moulaei et al. (\ref{ref: Algorithm comparison}), 2022].
 
 \subsection{Classifiers}
 % Supervised learning
@@ -145,7 +146,7 @@ MLP is a special case of feed forward neural networks where every layer is a ful
 \\
 \\
 The use for MLP compared to a normal feed forward neural network is when we don't know a lot about the structure of the problem. Using fully connected layers allows us to learn the structure, rather than impose it [Alex \ref{ref:MLP kilde}]. 
-For more on feed forward neural netoworks, have a look at our previous report on it found \href{https://github.com/erlend1202/FYS_STK4155_Prosjekt_2}{here}.
+For more on feed forward neural networks, have a look at our previous report on it found \href{https://github.com/erlend1202/FYS_STK4155_Prosjekt_2}{here}.
 
 % Information moves forward through the layers
 % Non-linear activation function
@@ -182,7 +183,7 @@ Since the task of classifying whether someone dies of covid or not is pretty dif
 \begin{align}
     F_1 = 2*\frac{precision*recall}{precision + recall} = \frac{2tp}{2tp + fp + fn}
 \end{align}
-where tp is true positives, fp is false positives, and fn is false negatives.
+where \textit{tp} is true positives, \textit{fp} is false positives, and \textit{fn} is false negatives.
 % \subsection{Regression}
 % Based on previous research we expect age to be a contributing factor. 
 % We will use linear regression to investigate the connection between age and death
@@ -191,7 +192,7 @@ where tp is true positives, fp is false positives, and fn is false negatives.
 
 % Metastudie/rapport om risikofaktorer og dødelighet: https://www.fhi.no/publ/2020/Covid-19-og-risikofaktorer-for-alvorlig-sykdom-en-hurtigoversikt-andre-oppdatering/
 \section{Implementation}\label{sec: IMPLEMENTATION}
-We will use the built in classifiers in the \emph{Scikit-learn} library, such as the MLP classifier and forest of trees classifier (Random forest). We will have to preprocess the data to fit our models, such as changing the dates of death to simply a binary $1$ if dead or $0$ if alive. We will first use MLP and Random forest to see how well these classifiers are able to predict wether someone dies of covid or not. Then, we will extract the most important features from the Random forest classifier. We will also use sklearns linear regression and polynomial features on our data to predict the probability of dying from covid based on age and then add in other factors later. 
+We will use the built in classifiers in the \emph{Scikit-learn} library, such as the MLP classifier and forest of trees classifier (Random forest). We will have to preprocess the data to fit our models, such as changing the dates of death to simply a binary $1$ if dead or $0$ if alive. We will first use MLP and Random forest to see how well these classifiers are able to predict whether someone dies of covid or not. Then, we will extract the most important features from the Random forest classifier. We will also use sklearns linear regression and polynomial features on our data to predict the probability of dying from covid based on age and then add in other factors later. 
 \\
 How the different classifiers work and how to use them can be found on these links: 
 \href{https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html}{MLP},
@@ -274,7 +275,7 @@ Before we start analyzing the data, we want to look into the bias-variance trade
 \end{figure}
 
 As we can see from figures \ref{fig: OLS_BIAS}, \ref{fig: RIDGE_BIAS}, \ref{fig: LASSO_BIAS}, the optimal number of polynomials for OLS is about 6, while for Ridge and Lasso, the bias-variance tradeoff is more stable, but results in a worse MSE for the optimal solution compared to OLS.
-This means that OLS might be best performing for certain cenarios, but Lasso and Ridge being more stable means they might generally be better choises.
+This means that OLS might be best performing for certain scenarios, but Lasso and Ridge being more stable means they might generally be better choices.
 \\
 \\
 We now do the same for our MLP and Random forest classifiers:
@@ -293,7 +294,7 @@ We now do the same for our MLP and Random forest classifiers:
     \label{fig: FOREST_BIAS}
 \end{figure}
 
-As we can see in figure \ref{fig: MLP_BIAS}, the bias-variance tradeoff is around 4 layers, so we will use this moving on with our data set. For the Random forest classifier that we see in figure \ref{fig: FOREST_BIAS}, the bias stayed about the same, but the variance tradeoff was at a out $25$ samples for each leaf. Keep in mind that since we use regression to test the bias-variane tradeoff, it means that we might get a different result than if we tested using our classification data set. But because it is such a complex set, we chose something that is more easily used for measuring performance. 
+As we can see in figure \ref{fig: MLP_BIAS}, the bias-variance tradeoff is around 4 layers, so we will use this moving on with our data set. For the Random forest classifier that we see in figure \ref{fig: FOREST_BIAS}, the bias stayed about the same, but the variance tradeoff was at about $25$ samples for each leaf. Keep in mind that since we use regression to test the bias-variance tradeoff, it means that we might get a different result than if we tested using our classification data set. But because it is such a complex set, we chose something that is more easily used for measuring performance. 
 \\
 \\
 We now want to analyze the different activation functions for our MLP classifier, to see how they perform on the given data set and see which hyperparameters work best. We will use a sample size of the data, consisting of $10 000$ randomly chosen points. %We get the following heatmap plots:
@@ -388,7 +389,7 @@ We will now look at similar plots for our forest of trees classification method 
 %\caption{Plot of F1-scores for different sample sizes for forest of trees method using scikit learns RandomForestClassifier.}
 \\
 \\
-If we compare figure \ref{fig: 10} and \ref{fig: 11}, we see that the forest of trees has a slightly better outcome on the F1-scores than our MLP classifier. Also, in contrast to our MLP, it does not seem that forest of trees hits a max F1-score anytime during the plot. We tested this further using the whole data set, which resulted in a F1-score of $0.82$, so it seems forest of trees does a better job at classifying using the whole data set compared to MLP. % In accordance with research
+If we compare figure \ref{fig: 10} and \ref{fig: 11}, we see that the forest of trees has a slightly better outcome on the F1-scores than our MLP classifier. Also, in contrast to our MLP, it does not seem that forest of trees hits a max F1-score anytime during the plot. We tested this further using the whole data set, which resulted in a F1-score of $0.82$, so it seems forest of trees does a better job at classifying using the whole data set compared to MLP. This is in accordance with the previously mentioned results achieved by Moulaei et al. [Moulaei et al. (\ref{ref: Algorithm comparison}), 2022]. % Referere på nytt? Eller referere til seksjonen i teksten vår der vi sist nevnte den, noe a la: This is in accordance with the results achieved by Moulaei et al. mentioned in section \ref{subsec: DATA}
 \\
 \\
 With forest of trees, we can extract and see which features the classifier found to be most relevant:
@@ -402,10 +403,12 @@ With forest of trees, we can extract and see which features the classifier found
 %\caption{Plot of feature importance for forest of trees method using scikit learns RandomForestClassifier.}
 \\
 \\
-% xgboost på samme data som vi kan sammenligne med, med fokus på feature importance: https://www.kaggle.com/code/baturalpsert/covid19-xgboost-eda
+
 % Rapport vi kan sammenligne med: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8485986/
-In figure \ref{fig: 12}, we see that two features are dominant, age and whether or not a person was connected to a ventilator (INTUBED). Less significant, but still important features include whether a person was hospitalized or not (PATIENT$\_$TYPE), whether a person was admitted to the intensive care unit or not (ICU), and whether or not a person had pneumonia at the time the sample was taken. None of these results are, by themselves, unexpected. People who need to be admitted to the hospital, the ICU, or a ventilator are already quite sick, and are thus more likely to die than the general case. What is interesting, however, 
-we see that age is the most important feature for our predictions, even above ICU. Age as a factor is in accordance with previous research [Flodgren et al (\ref{ref: FHI risikofaktorer}), 2020]. We will therefore further analyze this feature. We start by making a figure showing the total amount of deaths, and a figure showing the probability of death given age.
+% https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-021-01742-0/tables/4
+% Skal vi vise til feature labels, altså (INTUBED) eller skal vi droppe det? Det er og en mulighet å lage en tabell i appendix med feature-forklaringer som vi refererer til
+In figure \ref{fig: 12}, we see that two features are dominant, age and whether or not a person was connected to a ventilator (INTUBED). Less significant, but still important features include whether a person was hospitalized or not (PATIENT$\_$TYPE), whether a person was admitted to the intensive care unit or not (ICU), and whether or not a person had pneumonia at the time the sample was taken. None of these results are, by themselves, unexpected. People who need to be admitted to the hospital, the ICU, or a ventilator are already quite sick, and are thus more likely to die than the general case. What is interesting, however, is just how dominant the age factor is, dwarfing features such as diabetes, obesity, cardiovascular diseases, and immunosuppression (IMMSUPR), all of which are risk factors for covid-19 [FHI (\ref{ref: FHI risikogrupper 2}), 2022]. This goes against what was found by Moulaei et al, who reported a higher degree of importance for ICU admission than for age, and a much closer degree of importance between the age, diabetes, hypertension, and cardiovascular disease features [Moulaei et al. (\ref{ref: Algorithm comparison}), 2022]. However, this difference in results is likely caused by vastly different sample sizes, as Moulaei et al. had only $1500$ samples to work with. Either way, there is an agreement that age is a feature of high importance, which is also supported by other research [Flodgren et al (\ref{ref: FHI risikofaktorer}), 2020]. We will therefore further analyze this feature. We start by making a figure showing the total amount of deaths, and a figure showing the probability of death given age.
+%we see that age is the most important feature for our predictions, even above ICU. Age as a factor is in accordance with previous research [Flodgren et al (\ref{ref: FHI risikofaktorer}), 2020]. 
 
 \begin{figure}[H]
     \centering
@@ -454,7 +457,7 @@ As we see in figure \ref{fig: 15}, the plots start to really improve and fit the
 \\
 In figure \ref{fig: 16} we see that at about $200 000$ samples, our model is able to fit the data set more than well enough. This shows us that even though the data set consists of $1 000 000$ different cases, we only need about $200 000$ to be able to accurately predict the death rate of covid based on age. For future viruses, this would be very useful to predict how dangerous the virus is, and also which age groups should be considered a risk group.
 \\
-After looking into the death rate based on age, we want to combine this to examine how an underlying condition contributes to the overall death rate. Specifically, we will look at diabetes as, while not being a disease of the lungs, it is still classified as a risk group (kilde). Also, if we look at figure \ref{fig: 12}, we see that diabetes has a higher importance than asthma, which is a respiratory disease, in our random forest model. Therefore, we made a plot of the death rate based on age for those with diabetes, and compared it to the overall death rate based on age:
+After looking into the death rate based on age, we want to combine this to examine how an underlying condition contributes to the overall death rate. Specifically, we will look at diabetes as, while not being a disease of the lungs, it is still classified as a risk group. Also, if we look at figure \ref{fig: 12}, we see that diabetes has a higher importance than asthma, which is a respiratory disease, in our random forest model. Therefore, we made a plot of the death rate based on age for those with diabetes, and compared it to the overall death rate based on age:
 %Now that we have looked into the death rate based on age, we want to combine this to see how an underlying condition contributes to the overall death rate. We chose to look at diabetes, as it is a disease classified as a risk group from covid, but not a disease that affects the lungs such as asthma, so it would be interesting to see how it affects covid. Also, when we looked at figure \ref{fig: 12}, showing feature importance, diabetes was above asthma, so it would be interesting to see exactly why that is. Therefore, we made a plot of the death rate based on age for those with diabetes, and compared it to the overall death rate based on age:
 \begin{figure}[H]
     \centering
@@ -480,14 +483,16 @@ The code used in this project can be found in \href{https://github.com/mathiasme
 Alex 
 \href{https://boostedml.com/2020/04/feedforward-neural-networks-and-multilayer-perceptrons.html}{Feedforward Neural Networks and Multilayer Perceptrons}, (BOOSTEDML, 2020).\label{ref:MLP kilde}
 \\
-Flodgren et al. \href{https://www.fhi.no/globalassets/dokumenterfiler/rapporter/2020/covid-19-and-risk-factors-for-severe-disease-2nd-update-report-2020.pdf}{COVID-19 and risk factors for severe disease - a rapid review, 2nd update} (FHI, 2020). \label{ref: FHI risikofaktorer}
+Flodgren et al. \href{https://www.fhi.no/globalassets/dokumenterfiler/rapporter/2020/covid-19-and-risk-factors-for-severe-disease-2nd-update-report-2020.pdf}{COVID-19 and risk factors for severe disease - a rapid review, 2nd update}, (FHI, 2020). \label{ref: FHI risikofaktorer}
 \\
-Folkehelseinstituttet \href{https://www.fhi.no/contentassets/8a971e7b0a3c4a06bdbf381ab52e6157/vedlegg/2022/ukerapport-uke-49-05.12--11.12.22.pdf}{Covid-19, influensa og andre luftveisinfeksjoner: Rapport - uke 49}, (FHI, 2022) \label{ref: ukerapport_corona}
+Folkehelseinstituttet \href{https://www.fhi.no/nettpub/coronavirus/befolkningen/risikogrupper/}{Råd og informasjon til risikogrupper og pårørende}, (FHI, 2022). \label{ref: FHI risikogrupper 2}
+\\
+Folkehelseinstituttet \href{https://www.fhi.no/contentassets/8a971e7b0a3c4a06bdbf381ab52e6157/vedlegg/2022/ukerapport-uke-49-05.12--11.12.22.pdf}{Covid-19, influensa og andre luftveisinfeksjoner: Rapport - uke 49}, (FHI, 2022). \label{ref: ukerapport_corona}
 \\
 IBM 
 \href{https://www.ibm.com/cloud/learn/random-forest}{Feedforward Neural Networks and Multilayer Perceptrons}, (IBM, 2020).\label{ref:RandomForest Kilde}
 \\
-
+Moulaei, K et al. \href{https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-021-01742-0}{Comparing machine learning algorithms for predicting COVID-19 mortality}, (BMC Medical Informatics and Decision Making, 2022). \label{ref: Algorithm comparison}
 \\
 World Health Organization \href{https://covid19.who.int/}{WHO Coronavirus (COVID-19) Dashboard}. Accessed 28. November 2022. \label{ref: numberOfDeaths}
 
