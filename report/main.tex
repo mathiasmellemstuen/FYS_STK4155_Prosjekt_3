@@ -93,7 +93,7 @@
 
 %This is how we create an abstract section.
 \begin{abstract}
-    
+    In this project we analyzed Covid-19 data of people who died or did not die of Covid-19. The data set consisted of $21$ features, such as whether or not someone had diabetes. We started out by using MLP and Random forest classifiers to try to predict whether someone with Covid-19 would die or not, and found Random forest to be a better classifier for this. We also extracted the feature importance using the Random forest classifier, and found age to be the most important feature. We then looked into the chance of dying based on age, and tried to fit a linear regression model to this data with as few samples as possible, and figured we only needed about $200 000$ samples to fully predict the death rate of Covid-19. After this we compared the death rate of the general population compared to those with diabetes, and found that those with diabetes were at larger risk of dying from Covid-19 across all age groups. With this we proved that combining data analysis with machine learning can be an important tool for predicting the health risks for a new virus outbreak and see which groups are more at risk, so we know who to prioritize for vaccines and other treatment methods.
 \end{abstract}
 \maketitle
 
@@ -422,7 +422,7 @@ In figure \ref{fig: 12}, we see that two features are dominant, age and whether 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{FYS-STK/Prosjekt_3/chance_of_dying.png}
-    \caption{Plot showing the probability of death given age}
+    \caption{Plot showing the probability of death given age.}
     \label{fig: 14}
 \end{figure}
 %\includegraphics[width=0.45\textwidth]{FYS-STK/Prosjekt_3/chance_of_dying.png}
